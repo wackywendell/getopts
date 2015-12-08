@@ -545,6 +545,11 @@ impl Options {
         format!("{}\n\nOptions:\n{}\n", brief,
                 rows.collect::<Vec<String>>().connect("\n"))
     }
+    
+    /// Iterate over the loaded options
+    pub fn options(&self) -> std::slice::Iter<OptGroup> {
+        self.grps.iter()
+    }
 }
 
 /// What parsing style to use when parsing arguments.
@@ -606,7 +611,7 @@ struct Opt {
 /// One group of options, e.g., both `-h` and `--help`, along with
 /// their shared description and properties.
 #[derive(Clone, PartialEq, Eq)]
-struct OptGroup {
+pub struct OptGroup {
     /// Short name of the option, e.g. `h` for a `-h` option
     short_name: String,
     /// Long name of the option, e.g. `help` for a `--help` option
